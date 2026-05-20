@@ -1,0 +1,115 @@
+[Stage 1] Training head 1 on MNIST
+-----------------------------------
+Epoch 1: Train Loss=0.1767, Acc=0.9480 | Test Loss=0.0460, Acc=0.9850
+Epoch 2: Train Loss=0.0500, Acc=0.9842 | Test Loss=0.0380, Acc=0.9866
+Epoch 3: Train Loss=0.0339, Acc=0.9893 | Test Loss=0.0356, Acc=0.9888
+Epoch 4: Train Loss=0.0248, Acc=0.9923 | Test Loss=0.0277, Acc=0.9908
+Epoch 5: Train Loss=0.0202, Acc=0.9935 | Test Loss=0.0284, Acc=0.9898
+
+[Stage 2] Training second head with frozen backbone
+----------------------------------------------------
+Epoch 1:
+  FashionMNIST: Train Loss=0.3855, Acc=0.8638 | Test Loss=0.3262, Acc=0.8844
+  MNIST (frozen): Test Acc=0.9898
+Epoch 2:
+  FashionMNIST: Train Loss=0.2736, Acc=0.9007 | Test Loss=0.3239, Acc=0.8831
+  MNIST (frozen): Test Acc=0.9898
+Epoch 3:
+  FashionMNIST: Train Loss=0.2376, Acc=0.9128 | Test Loss=0.2843, Acc=0.8990
+  MNIST (frozen): Test Acc=0.9898
+Epoch 4:
+  FashionMNIST: Train Loss=0.2113, Acc=0.9214 | Test Loss=0.2839, Acc=0.9001
+  MNIST (frozen): Test Acc=0.9898
+Epoch 5:
+  FashionMNIST: Train Loss=0.1908, Acc=0.9295 | Test Loss=0.2920, Acc=0.8947
+  MNIST (frozen): Test Acc=0.9898
+
+[Stage 3] Unfreezing backbone and fine-tuning
+----------------------------------------------
+Epoch 1:
+  FashionMNIST: Train Loss=0.1393, Acc=0.9491 | Test Loss=0.2641, Acc=0.9093
+  MNIST: Test Acc=0.9896
+Epoch 2:
+  FashionMNIST: Train Loss=0.1272, Acc=0.9538 | Test Loss=0.2614, Acc=0.9116
+  MNIST: Test Acc=0.9896
+Epoch 3:
+  FashionMNIST: Train Loss=0.1207, Acc=0.9568 | Test Loss=0.2673, Acc=0.9095
+  MNIST: Test Acc=0.9896
+Epoch 4:
+  FashionMNIST: Train Loss=0.1148, Acc=0.9584 | Test Loss=0.2665, Acc=0.9145
+  MNIST: Test Acc=0.9896
+Epoch 5:
+  FashionMNIST: Train Loss=0.1099, Acc=0.9608 | Test Loss=0.2673, Acc=0.9147
+  MNIST: Test Acc=0.9900
+
+[Stage 4] Training from scratch with all layers unfrozen
+--------------------------------------------------------
+Epoch 1:
+  FashionMNIST: Train Loss=0.3567, Acc=0.8726 | Test Loss=0.3098, Acc=0.8861
+  MNIST: Test Acc=0.9889
+Epoch 2:
+  FashionMNIST: Train Loss=0.2446, Acc=0.9101 | Test Loss=0.2679, Acc=0.9003
+  MNIST: Test Acc=0.9889
+Epoch 3:
+  FashionMNIST: Train Loss=0.2003, Acc=0.9261 | Test Loss=0.2468, Acc=0.9109
+  MNIST: Test Acc=0.9886
+Epoch 4:
+  FashionMNIST: Train Loss=0.1718, Acc=0.9356 | Test Loss=0.2294, Acc=0.9199
+  MNIST: Test Acc=0.9873
+Epoch 5:
+  FashionMNIST: Train Loss=0.1458, Acc=0.9450 | Test Loss=0.2299, Acc=0.9194
+  MNIST: Test Acc=0.9866
+
+[Stage 5] Final Comparison
+--------------------------
+Frozen backbone:        0.8947
+After unfreeze:         0.9147
+Unfrozen from start:    0.9194
+
+[Stage 6] Random Initialization Experiments
+-------------------------------------------
+
+Configuration: 0 layers (all trainable)
+----------------------------------------
+Trainable parameters: 421,642 / 421,642 (100.0%)
+Training on FashionMNIST:
+  Epoch 2: Train Loss=0.3000, Acc=0.8904 | Test Loss=0.2952, Acc=0.8917
+  Epoch 4: Train Loss=0.2223, Acc=0.9180 | Test Loss=0.2516, Acc=0.9065
+  Epoch 6: Train Loss=0.1764, Acc=0.9341 | Test Loss=0.2330, Acc=0.9136
+  Epoch 8: Train Loss=0.1401, Acc=0.9479 | Test Loss=0.2364, Acc=0.9244
+  Epoch 10: Train Loss=0.1059, Acc=0.9608 | Test Loss=0.2581, Acc=0.9192
+Final accuracy: 0.9192
+
+Configuration: 1 layer (conv1 frozen)
+----------------------------------------
+Trainable parameters: 421,322 / 421,642 (99.9%)
+Training on FashionMNIST:
+  Epoch 2: Train Loss=0.3184, Acc=0.8834 | Test Loss=0.3132, Acc=0.8867
+  Epoch 4: Train Loss=0.2452, Acc=0.9100 | Test Loss=0.2766, Acc=0.8982
+  Epoch 6: Train Loss=0.2023, Acc=0.9250 | Test Loss=0.2640, Acc=0.9048
+  Epoch 8: Train Loss=0.1735, Acc=0.9358 | Test Loss=0.2818, Acc=0.8969
+  Epoch 10: Train Loss=0.1463, Acc=0.9457 | Test Loss=0.2669, Acc=0.9118
+Final accuracy: 0.9118
+
+Configuration: 2 layers (both conv layers frozen)
+----------------------------------------
+Trainable parameters: 402,826 / 421,642 (95.5%)
+Training on FashionMNIST:
+  Epoch 2: Train Loss=0.4026, Acc=0.8555 | Test Loss=0.3868, Acc=0.8641
+  Epoch 4: Train Loss=0.3330, Acc=0.8807 | Test Loss=0.3453, Acc=0.8772
+  Epoch 6: Train Loss=0.3025, Acc=0.8901 | Test Loss=0.3633, Acc=0.8690
+  Epoch 8: Train Loss=0.2819, Acc=0.8973 | Test Loss=0.3298, Acc=0.8804
+  Epoch 10: Train Loss=0.2651, Acc=0.9037 | Test Loss=0.3136, Acc=0.8854
+Final accuracy: 0.8854
+
+[Stage 7] Final Visualization - All Random Initialization Experiments
+----------------------------------------------------------------------
+...
+
+[Stage 8] Summary Table - Random Initialization
+------------------------------------------------
+Configuration                       Test Accuracy        Trainable Params    
+---------------------------------------------------------------------------
+0 layers (all trainable)            0.9192 (91.9%)           421642
+1 layer (conv1 frozen)              0.9118 (91.2%)           421322
+2 layers (both conv layers frozen)  0.8854 (88.5%)           402826
